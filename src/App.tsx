@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Calendario from './Pages/Calendario'
 import Login from './Pages/Login'
+import AgendaPage from './Pages/Agenda'
 
 
 function App() {
@@ -9,6 +10,8 @@ function App() {
       <Routes>
    <Route path="/" element={<Login />} />
    <Route path="/calaendario" element={<Calendario />} />
+   <Route path="/agenda" element={<AgendaPage />} />
+
    
       </Routes>
     </BrowserRouter>
