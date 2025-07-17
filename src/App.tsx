@@ -8,7 +8,7 @@ function App() {
     <BrowserRouter>
       <Routes>
    <Route path="/" element={<Login />} />
-   <Route path="/calaendario" element={<Calendario />} />
+   <Route path="/calendario" element={<Calendario/>} />
    
       </Routes>
     </BrowserRouter>
@@ -16,3 +16,5 @@ function App() {
 }
 
 export default App
+
+
