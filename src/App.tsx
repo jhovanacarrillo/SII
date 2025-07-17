@@ -10,7 +10,6 @@ function App() {
       <Routes>
    <Route path="/" element={<Login />} />
    <Route path="/calendario" element={<Calendario/>} />
-   <Route path="/calaendario" element={<Calendario />} />
    <Route path="/agenda" element={<AgendaPage />} />
 
    
