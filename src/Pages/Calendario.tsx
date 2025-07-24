@@ -2,6 +2,7 @@
 //import React from "react"
 import Calendario from "@/components/ui/calendar" 
 
+
 const events = [
   { date: "2025-07-02", title: "Reunión de trabajo" },
   { date: "2025-07-10", title: "SESIÓN EXTRAORDINARIA" },
@@ -18,6 +19,7 @@ const events = [
   { date: "2025-07-17", title: "Sesión ordinaria No. 3" },
   { date: "2025-07-17", title: "Sesión ordinaria No. 3" },
   { date: "2025-07-17", title: "Sesión ordinaria No. 3" },
+  { date: "2025-07-22", title: "Sesión ordinaria No. 3 Sesión ordinaria No. 3" },
   { date: "2025-07-18", title: "Sesión ordinaria No. 3" }
 ]
 
