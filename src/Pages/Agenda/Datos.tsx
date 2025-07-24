@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input"
 import * as React from "react"
 import { Search, Copy } from 'lucide-react';
 import { Plus } from 'lucide-react';
+import { Eye, EyeOff } from "lucide-react"
+
 
 
 import {
@@ -39,10 +41,12 @@ import {
 } from "@tanstack/react-table"
 
 
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }
+
 
 export function DataTable<TData, TValue>({
   columns,
@@ -55,7 +59,7 @@ export function DataTable<TData, TValue>({
   // const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
   //   []
   // )
-
+const [mostrarOpcionales, setMostrarOpcionales] = React.useState(false)
 
 
 
@@ -70,10 +74,23 @@ export function DataTable<TData, TValue>({
     //getFilteredRowModel: getFilteredRowModel(),
     onGlobalFilterChange: setGlobalFilter,
     getFilteredRowModel: getFilteredRowModel(),
-    state: {
-    sorting,
-    //columnFilters,
-    globalFilter,
+     state: {
+      sorting,
+      globalFilter,
+      columnVisibility: mostrarOpcionales
+        ? {}
+        : Object.fromEntries(
+            columns
+              .filter((col) => col.meta?.ocultable)
+              .map((col) => {
+                const key =
+                  "accessorKey" in col && typeof col.accessorKey === "string"
+                    ? col.accessorKey
+                    : col.id;
+                return key ? [key, false] : null;
+              })
+              .filter(Boolean) as [string, false][]
+          ),
     },
   })
 
@@ -88,25 +105,25 @@ export function DataTable<TData, TValue>({
     <div>
    
 <div className="flex items-center py-10">
-  <div className="bg-white px-4 py-3 rounded-md w-full shadow-sm">
+  <div className="bg-white px-4 py-3 rounded-md w-full shadow-sm dark:bg-black">
     <div className="flex justify-between items-center flex-wrap gap-4">
       
      
       <div className="flex items-center space-x-4">
        
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 w-5 h-5" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 w-5 h-5 dark:text-white"/>
           <Input
             placeholder="Buscar"
             value={globalFilter}
             onChange={(event) => setGlobalFilter(event.target.value)}
-            className="pl-10 border-gray-500 w-sm"
+            className="pl-10 border-gray-500 w-sm dark:border-white"
           />
         </div>
 
         
         <Select onValueChange={(value) => setPageSize(value === "all" ? data.length : Number(value))}>
-          <SelectTrigger className="w-[150px] border-gray-500">
+          <SelectTrigger className="w-[150px] border-gray-500 dark:border-white">
             <SelectValue placeholder={`Mostrar: ${pageSize}`}/>
           </SelectTrigger>
           <SelectContent>
@@ -132,49 +149,59 @@ export function DataTable<TData, TValue>({
 </div>
 
 
-    <div className="rounded-md border">
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                )
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
+    <div className="rounded-md border bg-white dark:bg-black ">
+       <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header, index) => {
+                  const isLast = index === headerGroup.headers.length -1
+                  return (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder ? null : (
+                        <div className="flex justify-center items-center gap-2">
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                          {isLast && (
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => setMostrarOpcionales((prev) => !prev)}
+                              title={mostrarOpcionales ? "Ver menos columnas" : "Ver más columnas"}
+                            >
+                              {mostrarOpcionales ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                            </Button>
+                          )}
+                        </div>
+                      )}
+                    </TableHead>
+                  )
+                })}
               </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                Ningún Resultado Coincide con la Búsqueda.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="h-24 text-center">
+                  Ningún Resultado Coincide con la Búsqueda.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
     </div>
 
 
