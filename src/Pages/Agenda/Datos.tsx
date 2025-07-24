@@ -105,25 +105,25 @@ const [mostrarOpcionales, setMostrarOpcionales] = React.useState(false)
     <div>
    
 <div className="flex items-center py-10">
-  <div className="bg-white px-4 py-3 rounded-md w-full shadow-sm dark:bg-black">
+  <div className="bg-white px-4 py-3 rounded-md w-full shadow-sm dark:bg-neutral-800">
     <div className="flex justify-between items-center flex-wrap gap-4">
-      
+       
      
       <div className="flex items-center space-x-4">
        
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 w-5 h-5 dark:text-white"/>
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2  text-gray-600 w-5 h-5  dark:text-neutral-100"/>
           <Input
             placeholder="Buscar"
             value={globalFilter}
             onChange={(event) => setGlobalFilter(event.target.value)}
-            className="pl-10 border-gray-500 w-sm dark:border-white"
+            className="pl-10 border-neutral-500 w-sm dark:border-neutral-400"
           />
         </div>
 
         
         <Select onValueChange={(value) => setPageSize(value === "all" ? data.length : Number(value))}>
-          <SelectTrigger className="w-[150px] border-gray-500 dark:border-white">
+          <SelectTrigger className="w-[150px] border-gray-500 dark:text-neutral-100 ">
             <SelectValue placeholder={`Mostrar: ${pageSize}`}/>
           </SelectTrigger>
           <SelectContent>
@@ -137,10 +137,18 @@ const [mostrarOpcionales, setMostrarOpcionales] = React.useState(false)
 
       
       <div className="space-x-3">
-        <Button size="sm" className="bg-gray-700 text-white hover:bg-gray-800">
+        <Button size="sm" 
+         className="
+    bg-gray-700 text-white hover:bg-gray-800
+    dark:bg-neutral-100 dark:text-neutral-950"     
+        >
           <Plus className="mr-1" /> Nuevo Usuario
         </Button>
-        <Button size="sm" className="bg-gray-700 text-white hover:bg-gray-800">
+        <Button size="sm" 
+        className="
+        bg-gray-700 text-white hover:bg-gray-800
+    dark:bg-neutral-100 dark:text-neutral-950"  
+        >
           <Copy className="mr-1" /> Copiar Correos
         </Button>
       </div>
@@ -149,7 +157,7 @@ const [mostrarOpcionales, setMostrarOpcionales] = React.useState(false)
 </div>
 
 
-    <div className="rounded-md border bg-white dark:bg-black ">
+    <div className="rounded-md border bg-white dark:bg-neutral-800 ">
        <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

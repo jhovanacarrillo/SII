@@ -185,7 +185,7 @@ function AgendaPage() {
 
   return (
 
-    <div className="min-h-screen bg-white text-black dark:bg-black dark:text-white py-10">
+    <div className="min-h-screen bg-white text-black dark:bg-neutral-950 dark:text-white py-10">
   <div className="container mx-auto">
     <DataTable columns={columns} data={data} />
   </div>

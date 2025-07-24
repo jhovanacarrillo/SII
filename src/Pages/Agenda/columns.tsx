@@ -59,7 +59,7 @@ export const columns: ColumnDef<Agenda>[] = [
   ),
    cell: () => (
    <div className="flex justify-center">
-    <img src="../../../public/img/user2.png" alt="usuario" className="w-10 h-10 rounded-full bg-white object-cover border border-gray-300"/>
+    <img src="../../../public/img/user3.jpeg" alt="usuario" className="w-10 h-10 rounded-full bg-white object-cover border border-gray-300"/>
    </div>
   ),
   },
@@ -81,7 +81,7 @@ export const columns: ColumnDef<Agenda>[] = [
         <Dialog>
           <DialogTrigger asChild>
             <button className="text-muted-foreground hover:text-primary transition-colors">
-              <FileUser className="w-5 h-5" />
+              <FileUser className="w-5 h-5  dark:text-neutral-300" />
             </button>
           </DialogTrigger>
           <DialogContent>
@@ -90,12 +90,12 @@ export const columns: ColumnDef<Agenda>[] = [
              <DialogDescription>
                 <div className="flex items-center gap-4 mt-4">
                   <img
-                    className="w-24 h-24 rounded-full"
-                    src="../../../public/img/user.png"
+                    className="w-26 h-26 rounded-full"
+                    src="../../../public/img/user3.jpeg"
                     alt="Usuario"
                   />
                   <div className="flex flex-col">
-                    <p className="text-lg font-medium text-black">{nombre}</p>
+                    <p className="text-lg font-medium text-black dark:text-neutral-100">{nombre}</p>
                     <p className="text-sm text-muted-foreground">{area}</p>
                     <p className="text-sm text-muted-foreground"> {puesto}</p>
 
