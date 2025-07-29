@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { FiUser, FiLock } from "react-icons/fi";
-import { FaSun, FaMoon } from "react-icons/fa";
+
+import { IconUser, IconLock } from '@tabler/icons-react';
+import { IconSunHigh, IconMoon } from '@tabler/icons-react';
 
 export default function Login() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -48,7 +49,7 @@ export default function Login() {
         className="absolute top-4 right-4 z-20 text-white dark:text-gray-200 hover:text-yellow-300 transition"
         aria-label="Cambiar tema"
       >
-        {theme === "dark" ? <FaSun /> : <FaMoon />}
+        {theme === "dark" ? <IconSunHigh stroke={2} /> : <IconMoon stroke={2} />}
       </button>
 
      
@@ -73,7 +74,7 @@ export default function Login() {
             <form className="space-y-6 flex flex-col items-center w-full max-w-sm mx-auto">
 
             <div className="relative">
-              <FiUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-neutral-200" />
+              <IconUser stroke={2} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-neutral-200" />
               <input
                 type="text"
                 placeholder="Usuario o Email institucional"
@@ -84,7 +85,7 @@ export default function Login() {
             </div>
 
             <div className="relative">
-              <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-200" />
+              <IconLock stroke={2} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-200" />
               <input
                 type="password"
                 placeholder="Contraseña"

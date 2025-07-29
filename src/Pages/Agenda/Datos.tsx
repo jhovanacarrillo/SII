@@ -5,9 +5,8 @@ import type { ColumnDef, SortingState } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import * as React from "react"
-import { Search, Copy } from 'lucide-react';
-import { Plus } from 'lucide-react';
-import { Eye, EyeOff } from "lucide-react"
+import { IconSearch, IconCopy, IconUserPlus  } from '@tabler/icons-react';
+import { IconEye,  IconEyeOff } from '@tabler/icons-react';
 
 
 
@@ -112,7 +111,7 @@ const [mostrarOpcionales, setMostrarOpcionales] = React.useState(false)
       <div className="flex items-center space-x-4">
        
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2  text-gray-600 w-5 h-5  dark:text-neutral-100"/>
+          <IconSearch stroke={2} className="absolute left-3 top-1/2 -translate-y-1/2  text-gray-600 w-5 h-5  dark:text-neutral-100"/>
           <Input
             placeholder="Buscar"
             value={globalFilter}
@@ -142,14 +141,14 @@ const [mostrarOpcionales, setMostrarOpcionales] = React.useState(false)
     bg-gray-700 text-white hover:bg-gray-800
     dark:bg-neutral-100 dark:text-neutral-950"     
         >
-          <Plus className="mr-1" /> Nuevo Usuario
+          <IconUserPlus stroke={3} className="mr-1" /> Nuevo Usuario
         </Button>
         <Button size="sm" 
         className="
         bg-gray-700 text-white hover:bg-gray-800
     dark:bg-neutral-100 dark:text-neutral-950"  
         >
-          <Copy className="mr-1" /> Copiar Correos
+          <IconCopy stroke={3} className="mr-1" /> Copiar Correos
         </Button>
       </div>
     </div>
@@ -176,7 +175,7 @@ const [mostrarOpcionales, setMostrarOpcionales] = React.useState(false)
                               onClick={() => setMostrarOpcionales((prev) => !prev)}
                               title={mostrarOpcionales ? "Ver menos columnas" : "Ver más columnas"}
                             >
-                              {mostrarOpcionales ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                              {mostrarOpcionales ? <IconEyeOff stroke={3} className="w-5 h-5" /> : <IconEye stroke={3} className="w-5 h-5" />}
                             </Button>
                           )}
                         </div>

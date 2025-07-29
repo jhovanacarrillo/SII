@@ -2,9 +2,9 @@
 "use client"
 
 import type { ColumnDef } from "@tanstack/react-table"
-import { Check, MoreHorizontal, X } from "lucide-react"
-import {  FileText,SquarePen } from "lucide-react"
-import { FileUser } from "lucide-react"
+import { IconUserSquare } from '@tabler/icons-react';
+import { IconCircleCheck, IconCircleX, IconGripHorizontal } from '@tabler/icons-react';
+import { IconClipboardText, IconEdit } from '@tabler/icons-react';
 
 
 
@@ -81,7 +81,7 @@ export const columns: ColumnDef<Agenda>[] = [
         <Dialog>
           <DialogTrigger asChild>
             <button className="text-muted-foreground hover:text-primary transition-colors">
-              <FileUser className="w-5 h-5  dark:text-neutral-300" />
+              <IconUserSquare stroke={2} className="w-5 h-5  dark:text-neutral-300" />
             </button>
           </DialogTrigger>
           <DialogContent>
@@ -182,9 +182,9 @@ export const columns: ColumnDef<Agenda>[] = [
     return(
        <div className="flex justify-center items-center gap-2">
         {isActivo ? (
-          <Check className="w-5 h-5 text-green-600"></Check>
+          <IconCircleCheck stroke={2} className="w-5 h-5 text-green-600"></IconCircleCheck>
         ): (
-          <X className="w-5 h-5 text-red-600"></X>
+          <IconCircleX stroke={2} className="w-5 h-5 text-red-600"></IconCircleX>
         )}
 
        </div>
@@ -218,19 +218,19 @@ export const columns: ColumnDef<Agenda>[] = [
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
               <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
+              <IconGripHorizontal stroke={2} className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="center">
   <DropdownMenuLabel>Acciones</DropdownMenuLabel>
   
   <DropdownMenuItem className="gap-2">
-    <FileText className="w-4 h-4" />
+    <IconClipboardText stroke={3} className="w-4 h-4" />
     Documento
   </DropdownMenuItem>
 
   <DropdownMenuItem className="gap-2">
-    <SquarePen className="w-4 h-4" />
+    <IconEdit stroke={2} className="w-4 h-4" />
     Editar
   </DropdownMenuItem>
 
