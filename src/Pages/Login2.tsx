@@ -143,8 +143,8 @@ export default function Login2() {
 
   return (
     <div className="w-screen h-screen flex items-center justify-center transition-colors duration-300">
-      <div className="flex w-full h-full shadow-lg overflow-hidden text-gray-800 dark:text-white relative bg-black">
-        {/* Imagen Izquierda */}
+      <div className="flex bg-white w-full h-full shadow-lg overflow-hidden text-gray-800 dark:text-white relative dark:bg-black">
+       
        <div  className="hidden md:block md:w-1/2 h-full">
           <img
   src={theme === "dark" ? "../../public/img/iepc-darks.jpg" : "../../public/img/img_iepc.jpg"}
@@ -153,7 +153,6 @@ export default function Login2() {
 />
         </div>
 
-        {/* Botón de tema */}
         <button
           onClick={toggleTheme}
           className="absolute top-4 right-4 text-gray-600 dark:text-gray-200 hover:text-black dark:hover:text-white transition"
@@ -162,7 +161,7 @@ export default function Login2() {
           {theme === "dark" ? <FaSun /> : <FaMoon />}
         </button>
 
-        {/* Formulario Derecho */}
+      
         <div className="w-full md:w-1/2 flex items-center justify-center p-8">
           <div className="w-full max-w-md">
             <div className="flex justify-center mb-6">

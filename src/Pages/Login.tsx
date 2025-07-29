@@ -32,7 +32,7 @@ export default function Login() {
 
   return (
     <div className="relative w-screen h-screen overflow-hidden">
-      {/* Imagen de fondo */}
+      
       <img
         src={theme === "dark" ? "../../public/img/iepc-darks.jpg" : "../../public/img/img_iepc.jpg"}
         alt="Fondo"
@@ -56,14 +56,16 @@ export default function Login() {
         <div className="bg-white dark:bg-black bg-opacity-90 dark:bg-opacity-50 rounded-lg shadow-lg p-15 w-full max-w-145 text-gray-800 dark:text-white">
          
           <div className="flex justify-center mb-6">
-            <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center shadow-md">
-              <img
-                src={theme === "dark" ? "../../public/img/logo_durango.png" : "../../public/img/logo_durango.png"}
-                alt="Logo Durango"
-                className="w-16 h-16 object-contain"
-              />
-            </div>
-          </div>
+  <div className="w-30 h-30 rounded-full bg-transparent flex items-center justify-center shadow-md">
+   <img
+      src="../../public/img/LOGO2023.svg"
+      alt="Logo"
+      className={`w-30 h-30 object-contain transition duration-300 
+        ${theme === "dark" ? "brightness-400 drop-shadow-[0_0_25px_rgba(255,255,255,0.6)]" : ""}`}
+    />
+  </div>
+</div>
+
 
           <h2 className="text-3xl font-bold text-center mb-10">Iniciar sesión</h2>
 
