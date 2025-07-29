@@ -11,18 +11,18 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import {
-  CalendarDays,
-  MapPin,
-  Clock,
-  Lock,
-  Globe,
-  Users,
-  ChevronLeft,
-  ChevronDown,
-  ChevronUp,
-  ChevronRight,
-  RotateCcw,
-} from "lucide-react"
+  IconChevronLeft,
+  IconChevronRight,
+  IconCalendarEvent,
+  IconMapPin,
+  IconClock,
+  IconWorld,
+  IconLock,
+  IconUsers,
+  IconChevronUp,
+  IconChevronDown,
+  IconRotate,
+} from "@tabler/icons-react"
 import { Button } from "@/components/ui/button"
 
 interface CalendarEvent {
@@ -82,7 +82,7 @@ export default function CustomCalendar({ events = [], isSidebarOpen = false }: P
       days.push(
         <div
           key={i}
-          className={`border dark:border-neutral-800 text-md rounded-sm flex flex-col overflow-hidden min-h-[150px] max-h-[100px] transition-colors
+          className={` dark:border-neutral-800 text-md rounded-sm flex flex-col overflow-hidden min-h-[150px] max-h-[100px] transition-colors
           ${day > 0 && day <= daysInMonth ? "bg-white dark:bg-neutral-950 hover:bg-gray-100 dark:hover:bg-neutral-950" : "bg-gray-100 dark:bg-neutral-900"}`}
         >
           {day > 0 && day <= daysInMonth && (
@@ -142,7 +142,7 @@ export default function CustomCalendar({ events = [], isSidebarOpen = false }: P
           }
 
           return (
-            <div className="space-y-4">
+            <div className="space-y-">
               {daysArray.map((day) => {
                 const currentDate = dayjs(new Date(year, month, day))
                 const formattedDate = currentDate.format("YYYY-MM-DD")
@@ -154,7 +154,7 @@ export default function CustomCalendar({ events = [], isSidebarOpen = false }: P
                   <div
                     key={day}
                     id={`day-${day}`}
-                    className="bg-white dark:bg-neutral-950 p-4 rounded-xl shadow-md scroll-mt-16 transition-colors hover:bg-gray-50 dark:hover:bg-neutral-800"
+                    className="bg-white dark:bg-neutral-950 p-2 border-sm scroll-mt-16 transition-colors hover:bg-gray-50 dark:hover:bg-neutral-800"
                   >
                     <div
                       className={`flex items-center justify-between font-semibold text-sm mb-2 rounded px-2 py-1 w-full
@@ -167,7 +167,7 @@ export default function CustomCalendar({ events = [], isSidebarOpen = false }: P
                           className="ml-2 text-cyan-600 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                           aria-label="Mostrar eventos"
                         >
-                          {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                          {isOpen ? <IconChevronUp className="w-4 h-4" /> : <IconChevronDown className="w-4 h-4" />}
                         </button>
                       )}
                     </div>
@@ -207,7 +207,7 @@ export default function CustomCalendar({ events = [], isSidebarOpen = false }: P
       ) : (
         <>
           <div className="flex items-center justify-between px-2 mb-5">
-            <ChevronLeft
+            <IconChevronLeft
               className="w-5 h-5 text-gray-600 dark:text-gray-300 hover:text-black cursor-pointer"
               onClick={() => {
                 if (month === 0) {
@@ -232,11 +232,11 @@ export default function CustomCalendar({ events = [], isSidebarOpen = false }: P
                     setYear(today.year())
                   }}
                 >
-                  <RotateCcw className="w-4 h-4" /> Hoy
+                  <IconRotate className="w-4 h-4" /> Hoy
                 </Button>
               )}
             </div>
-            <ChevronRight
+            <IconChevronRight
               className="w-5 h-5 text-gray-800 dark:text-gray-200 hover:text-black cursor-pointer"
               onClick={() => {
                 if (month === 11) {
@@ -266,29 +266,29 @@ export default function CustomCalendar({ events = [], isSidebarOpen = false }: P
           <div className="w-full bg-white dark:bg-neutral-900 p-2 rounded-md text-sm text-neutral-800 dark:text-gray-200 space-y-6">
             <div className="flex items-center justify-between border-b dark:border-neutral-700 pb-2">
               <div className="flex items-center gap-2">
-                <Users className="w-4 h-4" />
+                <IconUsers className="w-5 h-5" />
                 <span className="font-medium">
                   {selectedEvent?.responsable || "Sin responsable"}
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 {selectedEvent?.tipo === "Privado" ? (
-                  <Lock className="w-4 h-4 text-red-500" />
+                  <IconLock className="w-5 h-5 text-red-500" />
                 ) : (
-                  <Globe className="w-4 h-4" />
+                  <IconWorld className="w-5 h-5" />
                 )}
                 <span className="text-sm">{selectedEvent?.tipo || "Público"}</span>
               </div>
             </div>
             <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
               <div className="flex items-center gap-2">
-                <CalendarDays className="w-4 h-4" />
+                <IconCalendarEvent className="w-5 h-5" />
                 <span>
                   Fecha inicio: {selectedEvent?.date ? dayjs(selectedEvent.date).format("DD [de] MMMM [de] YYYY") : "Sin fecha"}
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <CalendarDays className="w-4 h-4" />
+                <IconCalendarEvent className="w-5 h-5" />
                 <span>
                   Fecha fin: {selectedEvent?.date ? dayjs(selectedEvent.date).format("DD [de] MMMM [de] YYYY") : "Sin fecha"}
                 </span>
@@ -296,11 +296,11 @@ export default function CustomCalendar({ events = [], isSidebarOpen = false }: P
             </div>
             <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
               <div className="flex items-center gap-1">
-                <MapPin className="w-4 h-4" />
+                <IconMapPin className="w-5 h-5" />
                 <span>Lugar: {selectedEvent?.lugar || "No especificado"}</span>
               </div>
               <div className="flex items-center gap-1">
-                <Clock className="w-4 h-4" />
+                <IconClock className="w-5 h-5" />
                 <span>
                   Hora: {selectedEvent?.hora_inicio && selectedEvent?.hora_fin ? `${selectedEvent.hora_inicio} a ${selectedEvent.hora_fin}` : "No especificada"}
                 </span>
