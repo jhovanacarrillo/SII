@@ -10,6 +10,8 @@ import {
   IconChevronRight,
   IconSun,
   IconMoon,
+  //IconDeviceDesktop,
+  IconDevices2
 } from "@tabler/icons-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -19,13 +21,14 @@ const navItems = [
   { name: "Calendario", icon: IconCalendarWeek, path: "/calendario" },
   { name: "Agenda", icon: IconAddressBook, path: "/agenda" },
   { name: "Administración", icon: IconFolderSearch, path: "/administracion" },
+  { name: "SIU", icon: IconDevices2, path: "/soporte"}
 ]
 
 export default function SidebarLayout() {
   const location = useLocation()
   const [isOpen, setIsOpen] = useState(true)
 
-  // Estado para tema (true = oscuro)
+  // Estado para tema
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== "undefined") {
       return document.documentElement.classList.contains("dark")
@@ -33,7 +36,7 @@ export default function SidebarLayout() {
     return false
   })
 
-  // Actualiza la clase 'dark' en <html> al cambiar darkMode
+  // Actualizar "dark"
   useEffect(() => {
     const html = document.documentElement
     if (darkMode) {
@@ -112,6 +115,9 @@ export default function SidebarLayout() {
 
           {/* Bottom */}
           <div className="p-4 flex flex-col items-left gap-6">
+              <Button  size="sm" className="bg-gray-300 text-gray-900 dark:bg-neutral-700 dark:text-white  border-gray-300 dark:border-gray-700">
+                      Generar Reporte
+               </Button>
             <Button
               size="icon"
               variant="ghost"
@@ -125,9 +131,12 @@ export default function SidebarLayout() {
               <div className="text-sm text-gray-600 dark:text-gray-400 text-center">
                 © {new Date().getFullYear()} Unidad Técnica de Cómputo
               </div>
+              
             )}
           </div>
         </aside>
+
+
 
 
       {/* Main */}
