@@ -2,31 +2,22 @@
 "use client"
 
 import type { ColumnDef } from "@tanstack/react-table"
-import { IconUserSquare } from '@tabler/icons-react';
-import { IconCircleCheck, IconCircleX, IconGripHorizontal } from '@tabler/icons-react';
-import { IconClipboardText, IconEdit } from '@tabler/icons-react';
+//import { IconUserSquare } from '@tabler/icons-react';
+import { IconCircleCheck, IconCircleX} from '@tabler/icons-react';
+import { ActionsCell } from "./Actions";
+import { DialogCell } from "./Dialog";
 
 
+// import {
+//   Dialog,
+//   DialogTrigger,
+//   DialogContent,
+//   DialogHeader,
+//   DialogTitle,
+//   DialogDescription,
+// } from "@/components/ui/dialog"
 
 
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog"
 
 export type Agenda = {
   id: string
@@ -39,6 +30,9 @@ export type Agenda = {
   status: "activo" | "inactivo",
   email: string
 }
+
+
+//const isMobile = window.innerWidth < 768;
 
 export const columns: ColumnDef<Agenda>[] = [
   {
@@ -66,97 +60,208 @@ export const columns: ColumnDef<Agenda>[] = [
 
 
 
+// {
+//   accessorKey: "nombre_completo",
+//   header: () => ( <div className="text-center text-cyan-700 dark:text-white font-bold">Nombre Completo</div>
+//   ),
+//   cell: ({ row }) => {
+   
+  
+//     const nombre = row.getValue("nombre_completo") as string
+//     const {area,puesto} = row.original
+//     return (
+//       <div className="flex items-center justify-center gap-2">
+//         <span>{nombre}</span>
+
+//         <Dialog>
+//           <DialogTrigger asChild>
+//             <button className="text-muted-foreground hover:text-primary transition-colors">
+//               <IconUserSquare stroke={2} className="w-5 h-5 dark:text-neutral-300" />
+//             </button>
+//           </DialogTrigger>
+//           <DialogContent className="bg-white text-gray-900 dark:bg-neutral-900 dark:text-neutral-100 [&>button]:text-gray-800 dark:[&>button]:text-white"
+// >
+   
+//             <DialogHeader>
+//               <DialogTitle>Información del usuario</DialogTitle>
+//              <DialogDescription>
+//                 <div className="flex items-center gap-4 mt-4">
+//                   <img
+//                     className="w-26 h-26 rounded-full"
+//                     src="../../../public/img/user3.jpeg"
+//                     alt="Usuario"
+//                   />
+//                   <div className="flex flex-col">
+//                     <p className="text-lg font-medium dark:text-neutral-100">{nombre}</p>
+//                     <p className="text-sm text-muted-foreground">{area}</p>
+//                     <p className="text-sm text-muted-foreground"> {puesto}</p>
+
+  
+
+//                     <div className="flex mt-2 gap-1">
+//   {[...Array(5)].map((_, index) => (
+//     <img
+//       key={index}
+//       src="../../../public/img/insignia2.png"
+//       alt="Insignia"
+//       className="w-8 h-8 object-contain"
+//     />
+//   ))}
+// </div>
+
+//                   </div>
+//                 </div>
+//               </DialogDescription>
+//             </DialogHeader>
+//           </DialogContent>
+//         </Dialog>
+//       </div>
+//     )
+//   },
+// },
+
+// {
+//   accessorKey: "nombre_completo",
+//   header: () => (
+//     <div className="text-center text-cyan-700 dark:text-white font-bold">Nombre Completo</div>
+//   ),
+//   cell: ({ row }) => {
+//     const nombre = row.getValue("nombre_completo") as string;
+//     const { area, puesto } = row.original;
+
+//     return (
+//       <Dialog>
+//         <DialogTrigger asChild>
+//           <div className="flex items-center justify-center gap-2 cursor-pointer hover:underline">
+//             <span>{nombre}</span>
+//           </div>
+//         </DialogTrigger>
+
+//         <DialogContent className="bg-white text-gray-900 dark:bg-neutral-900 dark:text-neutral-100 [&>button]:text-gray-800 dark:[&>button]:text-white">
+//           <DialogHeader>
+//             <DialogTitle>Información del usuario</DialogTitle>
+//             <DialogDescription>
+//               <div className="flex items-center gap-4 mt-4">
+//                 <img
+//                   className="w-26 h-26 rounded-full"
+//                   src="../../../public/img/user3.jpeg"
+//                   alt="Usuario"
+//                 />
+//                 <div className="flex flex-col">
+//                   <p className="text-lg font-medium dark:text-neutral-100">{nombre}</p>
+//                   <p className="text-sm text-muted-foreground">{area}</p>
+//                   <p className="text-sm text-muted-foreground">{puesto}</p>
+//                   <div className="flex mt-2 gap-1">
+//                     {[...Array(5)].map((_, index) => (
+//                       <img
+//                         key={index}
+//                         src="../../../public/img/insignia2.png"
+//                         alt="Insignia"
+//                         className="w-8 h-8 object-contain"
+//                       />
+//                     ))}
+//                   </div>
+//                 </div>
+//               </div>
+//             </DialogDescription>
+//           </DialogHeader>
+//         </DialogContent>
+//       </Dialog>
+//     );
+//   },
+// },
+
 {
   accessorKey: "nombre_completo",
-  header: () => ( <div className="text-center text-cyan-700 dark:text-white font-bold">Nombre Completo</div>
+  header: () => (
+    <div className="text-center text-cyan-700 dark:text-white font-bold">Nombre Completo</div>
   ),
   cell: ({ row }) => {
-    //const nombre = row.getValue("nombre_completo")
-    const nombre = row.getValue("nombre_completo") as string
-    const {area,puesto} = row.original
+    const { nombre_completo, area, puesto, email } = row.original;
     return (
-      <div className="flex items-center justify-center gap-2">
-        <span>{nombre}</span>
-
-        <Dialog>
-          <DialogTrigger asChild>
-            <button className="text-muted-foreground hover:text-primary transition-colors">
-              <IconUserSquare stroke={2} className="w-5 h-5  dark:text-neutral-300" />
-            </button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Información del usuario</DialogTitle>
-             <DialogDescription>
-                <div className="flex items-center gap-4 mt-4">
-                  <img
-                    className="w-26 h-26 rounded-full"
-                    src="../../../public/img/user3.jpeg"
-                    alt="Usuario"
-                  />
-                  <div className="flex flex-col">
-                    <p className="text-lg font-medium text-black dark:text-neutral-100">{nombre}</p>
-                    <p className="text-sm text-muted-foreground">{area}</p>
-                    <p className="text-sm text-muted-foreground"> {puesto}</p>
-
-                    {/* <div className="flex mt-2 gap-1">
-                      {[...Array(5)].map((_, index) => (
-                        <Medal key={index} className="w-4 h-4 text-gray-500 fill-gray-400" />
-                      ))}
-                    </div> */}
-
-
-                    <div className="flex mt-2 gap-1">
-  {[...Array(5)].map((_, index) => (
-    <img
-      key={index}
-      src="../../../public/img/insignia2.png"
-      alt="Insignia"
-      className="w-8 h-8 object-contain"
-    />
-  ))}
-</div>
-
-                  </div>
-                </div>
-              </DialogDescription>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
-      </div>
-    )
+      <DialogCell
+        triggerContent={<span>{nombre_completo}</span>}
+        nombre={nombre_completo}
+        area={area}
+        puesto={puesto}
+        email={email}
+      />
+    );
   },
 },
 
  
 
-   {
-    accessorKey: "area",
-     header: () => (
+//    {
+//     accessorKey: "area",
+//      header: () => (
+//     <div className="text-center text-cyan-700 dark:text-white font-bold">Área</div>
+//   ),
+//   cell: ({ row }) => (
+//     <div className="text-center">{row.getValue("area")}</div>
+//   ),
+//   },
+
+ {
+  accessorKey: "area",
+  header: () => (
     <div className="text-center text-cyan-700 dark:text-white font-bold">Área</div>
   ),
-  cell: ({ row }) => (
-    <div className="text-center">{row.getValue("area")}</div>
-  ),
+  cell: ({row}) => {
+    const{ nombre_completo, area, puesto, email} = row.original;
+    return(
+      <DialogCell
+        triggerContent={<span>{area}</span>}
+        nombre={nombre_completo}
+        area={area}
+        puesto={puesto}
+        email={email}
+
+      />
+    );
   },
+},
+
+
+
      {
     accessorKey: "puesto",
     header: () => (
     <div className="text-center text-cyan-700 dark:text-white font-bold">Puesto</div>
   ),
-  cell: ({ row }) => (
-    <div className="text-center">{row.getValue("puesto")}</div>
-  ),
+    cell: ({ row }) => {
+    const { nombre_completo, area, puesto, email } = row.original;
+    return (
+      <DialogCell
+        triggerContent={<span>{puesto}</span>}
+        nombre={nombre_completo}
+        area={area}
+        puesto={puesto}
+        email={email}
+
+      />
+    );
   },
+},
 
        {
     accessorKey: "email",
     header: () => (
     <div className="text-center text-cyan-700 dark:text-white font-bold">Correo Electrónico</div>
   ),
-  cell: ({ row }) => (
-    <div className="text-center">{row.getValue("email")}</div>
-  ),
+  cell: ({ row }) => {
+    const { nombre_completo, area, puesto, email } = row.original;
+    return (
+      <DialogCell
+        triggerContent={<span>{email}</span>}
+        nombre={nombre_completo}
+        area={area}
+        puesto={puesto}
+        email={email}
+
+      />
+    );
+  },
   },
 
      {
@@ -193,53 +298,24 @@ export const columns: ColumnDef<Agenda>[] = [
    meta: {ocultable: true},
   },
 
-  
 
-  // {
-  //   accessorKey: "amount",
-  //   header: () => <div className="text-right">Amount</div>,
-  //   cell: ({ row }) => {
-  //     const amount = parseFloat(row.getValue("amount"))
-  //     const formatted = new Intl.NumberFormat("en-US", {
-  //       style: "currency",
-  //       currency: "USD",
-  //     }).format(amount)
+//   {
+//   id: "actions",
+//   cell: ({ row }) => {
+//     const user = row.original; 
+//     return <ActionsCell userId={user.id} />; 
+//   },
+// },
 
-  //     return <div className="text-right font-medium">{formatted}</div>
-  //   },
-  // },
-  {
+
+   {
     id: "actions",
-    cell: () => {
-      //const payment = row.original
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <IconGripHorizontal stroke={2} className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="center">
-  <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-  
-  <DropdownMenuItem className="gap-2">
-    <IconClipboardText stroke={3} className="w-4 h-4" />
-    Documento
-  </DropdownMenuItem>
-
-  <DropdownMenuItem className="gap-2">
-    <IconEdit stroke={2} className="w-4 h-4" />
-    Editar
-  </DropdownMenuItem>
-
-  <DropdownMenuSeparator />
- 
-</DropdownMenuContent>
-
-        </DropdownMenu>
-      )
+    header: "",
+    cell: ({ row }) => {
+      const usuario = row.original;
+      //return <ActionsCell usuario={usuario} />;
+       return <ActionsCell usuario={usuario}  />;
     },
   },
+
 ]

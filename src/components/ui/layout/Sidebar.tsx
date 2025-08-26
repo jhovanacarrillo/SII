@@ -20,7 +20,7 @@ const navItems = [
   { name: "Inicio", icon: Home, path: "/dashboard" },
   { name: "Calendario", icon: Calendar, path: "/calendario" },
   { name: "Agenda", icon: Contact, path: "/agenda" },
-  { name: "Administración", icon: FolderArchive, path: "/administracion" },
+  { name: "SIU", icon: FolderArchive, path: "/soporte" },
 ]
 
 export default function SidebarLayout() {
