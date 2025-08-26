@@ -1,34 +1,89 @@
-// src/App.tsx
-//import React from "react"
-import Calendario from "@/components/ui/calendar" 
 
+"use client"
 
-const events = [
-  { date: "2025-07-02", title: "Reunión de trabajo" },
-  { date: "2025-07-10", title: "SESIÓN EXTRAORDINARIA" },
-  { date: "2025-07-10", title: "Reunión de retroalimentación" },
-  { date: "2025-07-04", title: "Capacitación para el consejo" },
-  { date: "2025-07-07", title: "Mesa de consejeros" },
-  { date: "2025-07-11", title: "Sesión ordinaria pública" },
-  { date: "2025-07-15", title: "Sesión ordinaria No. 3" },
-  { date: "2025-07-16", title: "Sesión ordinaria No. 3" },
-  { date: "2025-07-17", title: "Sesión ordinaria No. 3" },
-  { date: "2025-07-17", title: "Sesión ordinaria No. 3" },
-  { date: "2025-07-17", title: "Sesión ordinaria No. 3" },
-  { date: "2025-07-17", title: "Sesión ordinaria No. 3" },
-  { date: "2025-07-17", title: "Sesión ordinaria No. 3" },
-  { date: "2025-07-17", title: "Sesión ordinaria No. 3" },
-  { date: "2025-07-17", title: "Sesión ordinaria No. 3" },
-  { date: "2025-07-22", title: "Sesión ordinaria No. 3 Sesión ordinaria No. 3" },
-  { date: "2025-07-18", title: "Sesión ordinaria No. 3" }
-]
+import React, { useEffect, useState } from "react"
+import CustomCalendar from "@/components/ui/CustomCalendar"
+import axios from "axios"
 
-function App() {
-  return (
-    <div className="p-8">
-      <Calendario events={events} />
-    </div>
-  )
+interface ApiEvent {
+  id: number
+  title: string
+  start: string
+  end: string
+  user: {
+    id: number
+    name: string
+    email: string
+    area: {
+      id: number
+      name: string
+      acronym: string
+      email: string
+      image: string
+    }
+  }
+  type: {
+    id: number
+    name: string
+    color: string
+  }
+  scope: {
+    id: number
+    name: string
+  }
+  site: {
+    id: number
+    name: string
+  }
 }
 
-export default App
+interface CalendarEvent {
+  date: string
+  title: string
+  description?: string
+  responsable?: string
+  lugar?: string
+  hora_inicio?: string
+  hora_fin?: string
+  tipo?: string
+  area?: string
+  scope?: string
+}
+
+export default function CalendarioPage() {
+  const [events, setEvents] = useState<CalendarEvent[]>([])
+  const [loading, setLoading] = useState(true)
+
+ useEffect(() => {
+  const dummyData: CalendarEvent[] = [
+    {
+      date: "2025-08-08",
+      title: "Reunión General",
+      responsable: "Carlos",
+      lugar: "Sala A",
+      hora_inicio: "09:00",
+      hora_fin: "10:30",
+      tipo: "Público",
+      area: "Dirección",
+      description: "Reunión general institucional",
+    },
+
+  ]
+
+  setEvents(dummyData)
+  setLoading(false)
+}, [])
+
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-500 dark:text-gray-400">
+        Cargando calendario...
+      </div>
+    )
+  }
+
+return <CustomCalendar events={events} setEvents={setEvents} />
+
+
+}
