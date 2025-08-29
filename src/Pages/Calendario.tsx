@@ -3,39 +3,9 @@
 
 import React, { useEffect, useState } from "react"
 import CustomCalendar from "@/components/ui/CustomCalendar"
-import axios from "axios"
+//import axios from "axios"
 
-interface ApiEvent {
-  id: number
-  title: string
-  start: string
-  end: string
-  user: {
-    id: number
-    name: string
-    email: string
-    area: {
-      id: number
-      name: string
-      acronym: string
-      email: string
-      image: string
-    }
-  }
-  type: {
-    id: number
-    name: string
-    color: string
-  }
-  scope: {
-    id: number
-    name: string
-  }
-  site: {
-    id: number
-    name: string
-  }
-}
+
 
 interface CalendarEvent {
   date: string
@@ -54,6 +24,8 @@ export default function CalendarioPage() {
   const [events, setEvents] = useState<CalendarEvent[]>([])
   const [loading, setLoading] = useState(true)
 
+
+  //Evento estático
  useEffect(() => {
   const dummyData: CalendarEvent[] = [
     {
