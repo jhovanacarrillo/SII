@@ -4,6 +4,10 @@ import dayjs from "dayjs"
 import "dayjs/locale/es"
 import axios from "axios"
 import { Calendar } from "@/components/ui/calendar"
+//import { setupMockBackend } from "../../Pages/Simulator/mockBackend";
+
+
+
 import { Switch } from "@/components/ui/switch"
 import {
   Select,
@@ -45,14 +49,25 @@ export interface CalendarEvent {
   date: string
   title: string
   description?: string
-  user?: string
+  user?: {
+    id: number
+    name: string
+    email: string
+    area?: {
+      id: number
+      name: string
+      acronym: string
+      email: string
+      image: string
+    }
+  }
   site?: string // lugar
   start?: string
   end?: string
   tipo?: string //privado o público
   area?: string
   type?: string  //sesión, capacitación, etc
- // name?: string
+  //name?: string
   scope?: string //modalidad
   consecutivo?: string
   consecutiva?: number
@@ -66,6 +81,9 @@ interface Props {
 
 dayjs.locale("es")
 
+
+
+
 export default function CustomCalendar({ events = [], setEvents }: Props) {
 
   const today = dayjs()
@@ -74,6 +92,7 @@ export default function CustomCalendar({ events = [], setEvents }: Props) {
   const [selectedEvent, setSelectedEvent] = React.useState<CalendarEvent | null>(null)
   const [openNewEventModal, setOpenNewEventModal] = React.useState(false)
   const [startDate, setStartDate] = React.useState<Date | undefined>(new Date())
+  //const [startDate, setStartDate] = React.useState<Date | undefined>(new Date())
   const [endDate, setEndDate] = React.useState<Date | undefined>(new Date())
   const [startTime, setStartTime] = React.useState<string>("09:00")
   const [endTime, setEndTime] = React.useState<string>("10:00")
@@ -187,6 +206,21 @@ const preposiciones: Record<string, string> = {
   "Vinculación con el INE.": "de la Comisión de",
   "Transparencia": "del Comité de"
 }
+
+
+const mockUser = {
+  id: 1,
+  name: "Alondra Gutiérrez Flores",
+  email: "alondra.gutierrez",
+  area: {
+    id: 3,
+    name: "Dirección",
+    acronym: "DO",
+    email: "dir.orga",
+    image: "https://liga/a/imagen.png"
+  }
+}
+
 
 
 function combineDateTime(date: Date | undefined, time: string): string {
@@ -450,7 +484,7 @@ React.useEffect(() => {
                 }
               </p>
               <p className="text-sm text-neutral-600 dark:text-gray-400 mt-1">
-                Área: {selectedEvent?.area || "No especificada"}
+                Área: {selectedEvent?.user?.area?.name || "No especificada"}
               </p>
             </DialogTitle>
           </DialogHeader>
@@ -461,7 +495,7 @@ React.useEffect(() => {
               <div className="flex items-center gap-2">
                 <IconUsers className="w-5 h-5" />
                 <span className="font-medium">
-                  {selectedEvent?.user || "Sin responsable"}
+                  {selectedEvent?.user?.name || "Sin responsable"}
                 </span>
               </div>
               <div className="flex items-center gap-2">
@@ -512,7 +546,7 @@ React.useEffect(() => {
                       setEditingIndex(index)
 
                       setNewTitle(selectedEvent.title)
-                      setNewResponsable(selectedEvent.user || "")
+                      setNewResponsable(selectedEvent.user?.name || "")
                       setSelectedSite(selectedEvent.site || "")
                       setStartDate(dayjs(selectedEvent.date).toDate())
                       setEndDate(dayjs(selectedEvent.date).toDate()) 
@@ -550,11 +584,11 @@ React.useEffect(() => {
 
                 <Dialog open={openNewEventModal} onOpenChange={setOpenNewEventModal}>
                     <DialogContent className="w-full max-w-[700px] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[800px] xl:max-w-[900px] rounded-xl border border-neutral-300 bg-white dark:border-neutral-900 dark:bg-neutral-900 shadow-lg">
-                      <DialogHeader className="text-center">
-                        <DialogTitle className="text-center w-full text-xl font-semibold dark:text-white">
-                        Crear nuevo evento
-                  </DialogTitle>
-                </DialogHeader>
+                     <DialogHeader className="text-center">
+                    <DialogTitle className="text-center w-full text-xl font-semibold dark:text-white">
+                      {selectedEvent ? "Editar evento" : "Crear nuevo evento"}
+                    </DialogTitle>
+                  </DialogHeader>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block mb-1">Tipo de evento</label>
@@ -695,8 +729,8 @@ React.useEffect(() => {
                     onCheckedChange={setIsPrivate}
                   />
                 </div>
-                   <div>
-                    <label className="block mb-2 w-full">Lugar</label>
+                   <div className="w-full">
+                    <label className="block mb-2">Lugar</label>
                     <Select
                       onValueChange={(val) => setNewLugar(val)}
                       value={newLugar}
@@ -735,7 +769,6 @@ React.useEffect(() => {
                               locale={es}
                               selected={startDate}
                               onSelect={setStartDate}
-                              
                             />
                           </PopoverContent>
                         </Popover>
@@ -800,12 +833,10 @@ React.useEffect(() => {
                           const payload = {
                             title: newTitle,
                             start: combineDateTime(startDate, startTime),
-                            end: combineDateTime(endDate, endTime),
-                            //user: user, 
+                            end: combineDateTime(endDate, endTime), 
                             type: tiposDeEvento.find((t) => t.id === Number(newTipo)),
                             scope: scope.find((s) => s.id === Number(newScope)),
                             site: site.find((l) => l.id === Number(newLugar)),
-
                           }
 
                           try {
@@ -813,16 +844,16 @@ React.useEffect(() => {
                               const eventToEdit = events[editingIndex]
                               const response = await axios.put(`/api/events/${eventToEdit.id}`, payload)
 
-                              setEvents(prev => {
-                                const updated = [...prev]
-                                updated[editingIndex] = response.data
-                                return updated
-                              })
+                            setEvents((prev: CalendarEvent[]) => {
+                            const updated = [...prev]
+                            updated[editingIndex] = response.data as CalendarEvent
+                            return updated
+                          })
                               setEditingIndex(null)
                               console.log("Evento actualizado:", response.data)
                             } else {
-                              const response = await axios.post("/api/events/search", payload)
-                              setEvents(prev => [...prev, response.data])
+                              const response = await axios.post("/api/events/", payload)
+                             setEvents((prev: CalendarEvent[]) => [...prev, response.data as CalendarEvent])
                               console.log("Evento creado:", response.data)
                             }
                             // Cerrar modal

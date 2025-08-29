@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { Outlet, useLocation, Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
+import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils"
 import {
   IconCalendarWeek,
@@ -11,22 +12,23 @@ import {
   IconSun,
   IconMoon,
   //IconDeviceDesktop,
-  IconDevices2
+  //IconDevices2
 } from "@tabler/icons-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 
 const navItems = [
-  { name: "Inicio", icon: Home, path: "/dashboard" },
-  { name: "Calendario", icon: Calendar, path: "/calendario" },
-  { name: "Agenda", icon: Contact, path: "/agenda" },
-  { name: "Administración", icon: FolderArchive, path: "/administracion" },
+  { name: "Calendario", icon: IconCalendarWeek, path: "/calendario" },
+  { name: "Agenda", icon: IconAddressBook, path: "/agenda" },
+  { name: "Administración", icon: IconFolderSearch, path: "/administracion" },
+  //{ name: "SIU", icon: IconDevices2, path: "/soporte"}
 ]
 
 export default function SidebarLayout() {
   const location = useLocation()
   const [isOpen, setIsOpen] = useState(true)
+    const navigate = useNavigate();
 
   // Estado para tema
   const [darkMode, setDarkMode] = useState(() => {
@@ -115,8 +117,10 @@ export default function SidebarLayout() {
 
           {/* Bottom */}
           <div className="p-4 flex flex-col items-left gap-6">
-              <Button  size="sm" className="bg-gray-300 text-gray-900 dark:bg-neutral-700 dark:text-white  border-gray-300 dark:border-gray-700">
+              <Button  size="sm" className="bg-gray-300 text-gray-900 dark:bg-neutral-700 dark:text-white  border-gray-300 dark:border-gray-700"  onClick={() => navigate("/soporte")}
+>
                       Generar Reporte
+
                </Button>
             <Button
               size="icon"
