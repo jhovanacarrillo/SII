@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
-import { Outlet, useLocation, Link } from "react-router-dom"
+import { Outlet, useLocation, Link, useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils"
 import {
   IconCalendarWeek,
@@ -13,7 +12,12 @@ import {
   IconMoon,
   IconDeviceDesktopPlus
 } from "@tabler/icons-react"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 
@@ -26,9 +30,9 @@ const navItems = [
 export default function SidebarLayout() {
   const location = useLocation()
   const [isOpen, setIsOpen] = useState(true)
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  //Tema
+  // Tema
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== "undefined") {
       return document.documentElement.classList.contains("dark")
@@ -68,6 +72,7 @@ export default function SidebarLayout() {
               </div>
             )}
 
+            {/* botón de abrir/cerrar */}
             <Button
               size="icon"
               variant="ghost"
@@ -79,6 +84,7 @@ export default function SidebarLayout() {
 
           <Separator />
 
+          {/* Navegación principal */}
           <ScrollArea className="flex-1 px-2">
             <nav className="flex flex-col gap-2 mt-4">
               <TooltipProvider>
@@ -101,7 +107,9 @@ export default function SidebarLayout() {
                           </Button>
                         </Link>
                       </TooltipTrigger>
-                      {!isOpen && <TooltipContent side="right">{item.name}</TooltipContent>}
+                      {!isOpen && (
+                        <TooltipContent side="right">{item.name}</TooltipContent>
+                      )}
                     </Tooltip>
                   )
                 })}
@@ -110,9 +118,10 @@ export default function SidebarLayout() {
           </ScrollArea>
         </div>
 
-        {/* Bottom */}
-        <div className="p-4 flex flex-col items-left gap-4">
-          {/* Botón Generar Reporte */}
+        <Separator />
+
+        {/* Bottom Section */}
+        <div className="p-4 flex flex-col items-start gap-4">
           <TooltipProvider>
             <Tooltip delayDuration={500}>
               <TooltipTrigger asChild>
@@ -129,11 +138,13 @@ export default function SidebarLayout() {
                   {isOpen && "Generar Reporte"}
                 </Button>
               </TooltipTrigger>
-              {!isOpen && <TooltipContent side="right">Generar Reporte</TooltipContent>}
+              {!isOpen && (
+                <TooltipContent side="right">Generar Reporte</TooltipContent>
+              )}
             </Tooltip>
           </TooltipProvider>
 
-          {/* Botón modo oscuro */}
+          {/* Toggle dark mode */}
           <Button
             size="icon"
             variant="ghost"
@@ -151,7 +162,7 @@ export default function SidebarLayout() {
         </div>
       </aside>
 
-
+      {/* Main */}
       <main className="flex-1 overflow-auto p-6 bg-neutral-100 text-black dark:bg-neutral-950 dark:text-white">
         <Outlet />
       </main>
